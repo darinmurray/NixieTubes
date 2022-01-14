@@ -11,9 +11,8 @@
 </p>
 
 <p align="center">
-No images are used (except fo rthe screenshots in this readMe). 
-
+No images are used (except for the screenshots in this readMe). 
+</p>
+<p align="center">
 Everything is completely created with HTML/CSS/Jquery-Javascript.
-
-Purely done for fun and exploration.
 </p>
