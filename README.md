@@ -1,6 +1,4 @@
-# NixieTubes
-
-<h1 align="center"> Pure CSS Vintage Nixie tubes </h1>
+<h1 align="center" style="border-bottom:none;"> Pure CSS Vintage Nixie tubes </h1>
 <p align="center">
   <img src="images/read-me-images/clock.png">
 </p>
@@ -12,7 +10,7 @@
   <img src="images/read-me-images/row-of-tubes.png">
 </p>
 
-<p>
+<p align="center">
 No images are used (except fo rthe screenshots in this readMe). 
 
 Everything is completely created with HTML/CSS/Jquery-Javascript.
