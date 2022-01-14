@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--  Meta  -->
+  <meta charset="UTF-8">
+  <title>Nixie Clock Plus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--  Styles  -->
+  <!--   <link rel="stylesheet" href="styles/index.processed.css"> -->
+  <link rel="stylesheet" href="styles/index.css">
+  <link rel="script" href="scripts/index.js">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway+Dots&family=Raleway:wght@100;300;500;800&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--   <link href="https://db.onlinewebfonts.com/c/47d5fd8c3738de46ef0b3fe3f68c289a?family=Perfect+DOS+VGA+437" rel="stylesheet"> -->
+  <!-- <link href="https://db.onlinewebfonts.com/c/47d5fd8c3738de46ef0b3fe3f68c289a?family=Perfect+DOS+VGA+437" rel="stylesheet" type="text/css"/>
+ -->
+</head>
+
+<body>
+  
+<!--   <audio id="clicking" src="https://assets.mixkit.co/sfx/preview/mixkit-on-or-off-light-switch-tap-2585.mp3"> </audio>
+ -->
+<!--   from: https://artlist.io/sfx/track/27724/foleys,-full-glasses-clinking,-repeated -->
+<!--   <audio id="glass_tink" preload="auto" src="https://cdn.artlist.io/artlist-sfx-aac-256/337871_ALSFX_Foleys_Full_Glasses_clinking_23_normal.aac" style="width: 100%;"></audio> -->
+  
+<audio>
+ <audio preload="auto" id="sound-1" src="audio/Glass_Clink_6.m4a"> </audio>
+ <audio preload="auto" id="sound-2" src="audio/Glass_Clink_7.m4a"> </audio>
+ <audio preload="auto" id="sound-3" src="audio/Glass_Clink_8.m4a"> </audio>
+ <audio preload="auto" id="sound-4" src="audio/Glass_Clink_9.m4a"> </audio>
+ <audio preload="auto" id="sound-5" src="audio/Glass_Clink_10.m4a"> </audio>
+</audio>
+
+
+
+
+
+  <div class="tube_container_background">
+    <!--   <div class="filler">Use me for background effects?</div> -->
+    <div class="smoke_source vapor">
+      <!--  .vapor to activate -->
+      <span style="--i:9;"></span>
+      <span style="--i:5;"></span>
+      <span style="--i:15;"></span>
+      <span style="--i:4;"></span>
+      <span style="--i:16;"></span>
+      <span style="--i:13;"></span>
+      <span style="--i:2;"></span>
+      <span style="--i:6;"></span>
+      <span style="--i:18;"></span>
+      <span style="--i:10;"></span>
+      <span style="--i:17;"></span>
+      <span style="--i:1;"></span>
+      <span style="--i:19;"></span>
+      <span style="--i:11;"></span>
+      <span style="--i:20;"></span>
+      <span style="--i:3;"></span>
+      <span style="--i:14;"></span>
+      <span style="--i:8;"></span>
+      <span style="--i:12;"></span>
+      <span style="--i:7;"></span>
+    </div><!-- end Vapor -->
+    <div class="nixie_container ">
+      <div id="tube_1" class="nixie_tube ">
+        <div class="glass">
+
+          <!--  HONEYCOMB SVG ELEMENT  style="display:none" -->
+          <svg class="honeycomb">
+            <pattern id="pattern-hex" x="0" y="0" width="12.2" height="19" patternUnits="userSpaceOnUse" viewBox="56 -254 112 190">
+              <g id="hexagon">
+                <path d="M168-127.1c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2L169.3-0.3
+			c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5C167-127,167.5-127.1,168-127.1
+			L168-127.1z" />
+                <path d="M112-222.5c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2l-53.4,30.5
+			c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5
+			C111-222.4,111.5-222.5,112-222.5L112-222.5z" />
+                <path d="M168-317.8c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2L169.3-191
+			c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5
+			C167-317.7,167.5-317.8,168-317.8L168-317.8z" />
+              </g>
+            </pattern>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-hex)" />
+          </svg>
+
+          <div class="nipple"></div>
+          <div class="nixie_glass"></div>
+          <div class="nixie_glass_left"></div>
+          <div class="nixie_glass_left_front"></div>
+          <div class="nixie_glass_right_front"></div>
+          <!-- <div class="nixie_gla ss_right"></div> <!-- no real effect -->
+          <div class="top_reflection "></div>
+          <!--           <div class="honeycomb_1"></div>             -->
+          <div class="digits ">
+            <div class="digit no_11">!</div>
+            <div class="digit no_10">:</div>
+            <div class="digit no_9 ">9</div>
+            <div class="digit no_8 ">8</div>
+            <div class="digit no_7 ">7</div>
+            <div class="digit no_6 ">6</div>
+            <div class="digit no_5 ">5</div>
+            <div class="digit no_4 ">4</div>
+            <div class="digit no_3 ">3</div>
+            <div class="digit no_2 ">2</div>
+            <div class="digit no_1 ">1</div>
+            <div class="digit no_0 ">0</div>
+          </div>
+          <div class="prongs">
+            <div></div>
+            <div></div>
+          </div>
+        </div> <!-- end of glass  -->
+        <div class="base">
+          <!-- gradiant w LOW side reflection (for left-most)-->
+          <div class="base_gradiant"></div> <!-- gradiant w high side reflection-->
+          <div class="base_top ">
+            <div class="base_top_depth"></div> <!-- rounded side shading -->
+          </div>
+          <div class="base_glow "></div> <!-- reflection of lit tube -->
+        </div>
+      </div><!-- end Nixie Tube -->
+    </div><!-- end Nixie container -->
+
+  </div><!-- end tube_container_background -->
+
+  <div class="cabinet">
+    <div id="info" class="info  ">.</div>
+    <button id="power" class="single material-icons" data-content="power_settings_new">
+      <!-- data-content for pseudo element -->
+      <span class="material-icons">power_settings_new</span>
+    </button>
+    <div class="buttons">
+      <div id="cycle_button_wrapper" class="button_with_controls">
+        <button id="cycle" class="group_1" data-content="Cycle">Cycle</button>
+        <div id="cycle_slider_container">
+          <input type="range" min="50" max="1000" value="100" class="slider" id="cycle_speed">
+        </div><!-- cycle_slider_container -->
+      </div><!-- cycle_button_container -->
+
+      <div id="clock_button_wrapper" class="button_with_controls">
+        <button id="clock" class="group_1" data-content="Clock">Clock</button>
+        <div id="military_slider_container"><span class="h12"> 12 </span>
+          <label class="switch">
+            <input type="checkbox" id="military_time_switch">
+            <span class="slip round"> </span>
+          </label><span class="h24 opacity_5"> 24 </span>
+        </div><!-- military slider -->
+      </div><!-- button_with_controls -->
+
+      <button id="mayhem" class="group_1" data-content="Mayhem">Mayhem</button>
+    </div>
+  </div> <!-- end Cabinet -->
+
+  <!-- Blue Screen Of Death -->
+  <div id="bsog">
+    <div class="warning skitter">Windows</div>
+    <ul class="skitter">An error has occured. </ul>
+    <li class="skitter">Press any key to terminate the application</li>
+    <li class="skitter">Press CTRL+ALT+DEL agian to restart your computer. You will lose any unsaved data in all applications</li>
+    <p class="skitter">Error: OE : 016F : BFF9B3D4</p>
+    <p class="skitter">Continue? Y ? N <span class="blinker">__</span></p>
+  </div>
+
+  <!-- Move into correct position before deplyment -->
+  <!-- <svg class="honeycomb" style="display:none">  
+    <pattern id="pattern-hex" x="0" y="0" width="12.2" height="19" patternUnits="userSpaceOnUse" viewBox="56 -254 112 190">
+	    <g id="hexagon">
+		    <path d="M168-127.1c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2L169.3-0.3
+			c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5C167-127,167.5-127.1,168-127.1
+			L168-127.1z"/>
+		  <path d="M112-222.5c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2l-53.4,30.5
+			c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5
+			C111-222.4,111.5-222.5,112-222.5L112-222.5z"/>
+		  <path d="M168-317.8c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2L169.3-191
+			c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5
+			C167-317.7,167.5-317.8,168-317.8L168-317.8z"/>
+	  </g>  
+  </pattern>
+  <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-hex)" />
+</svg>
+ -->
+
+  <!-- for dev only; delete upon deploy -->
+  <!-- <div class="buttons_dev">
+  <button id="a" class="group_2 " data-content="thinner">thinner</button>
+  <button id="one" class="group_2 " data-content="1">1</button> 
+  <button id="two" class="group_2" data-content="2">2</button>
+  <button id="three" class="group_2" data-content="three">3</button>
+  <button id="four" class="group_2" data-content="four">4</button>
+  <button id="five" class="group_2" data-content="five">5</button>
+  <button id="six" class="group_2" data-content="six">6</button>
+  <button id="clearIntervals" class="group_2" data-content="Clear Intervals">Clear Intervals</button>
+  <button id="BSOG_button" class="group_2" data-content="six">BSOG</button>  
+</div> -->
+
+  <!-- Scripts -->
+  <script src="scripts/index.js"></script>
+</body>
+
+</html>

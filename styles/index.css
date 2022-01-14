@@ -1,0 +1,1289 @@
+body {
+    margin:0; 
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    background-color: var(--main-bg-color);
+    overflow:hidden;
+  }
+  *, *::before, *::after { box-sizing: border-box; /* gives padding and border from inside */
+  }
+  
+  :root {
+    --black-20: #000000;
+    --black-19: #1a1a1a;
+    --black-18: #1d1d1d;
+    --black-17: #202020;
+    --black-16: #232323;
+    --black-15: #252525;
+    --black-14: #2a2a2a;
+    --black-13: #2f2f2f;
+    --black-12: #343434;
+    --black-11: #464646;
+    --black-10: #4c4c4c;
+    --black-9: #515151;
+    --black-8: #575757;
+    --black-7: #5c5c5c;
+    --black-6: #727272;
+    --black-5: #9e9e9e;
+    --black-4: #cacaca;
+    --black-3: #e0e0e0;
+    --black-2: #ebebeb;
+    --black-1: #f5f5f5; /* whitesmoke */
+    
+    --main-bg-color: #000000;
+    --smoke-color: yellow;  
+    --digit-off-color: #cccccc; 
+    --digit-on-color: pink; 
+    
+    /*  this will take some work, as .base_gradiant is much of the backtground color */
+    --base-background: #1a1a1a;  /*  rgb(22,22,22);  */
+   }  
+  
+  
+  @font-face {
+    font-family: 'Major Mono Display';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://fonts.gstatic.com/s/majormonodisplay/v7/RWmVoLyb5fEqtsfBX9PDZIGr2tFubRh7DXeV.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('https://fonts.gstatic.com/s/majormonodisplay/v7/RWmVoLyb5fEqtsfBX9PDZIGr2tFubRh7DXeV.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('https://fonts.gstatic.com/s/majormonodisplay/v7/RWmVoLyb5fEqtsfBX9PDZIGr2tFubRh7DXeR.woff2') format('woff2'), /* Super Modern Browsers */
+         url('https://fonts.gstatic.com/s/majormonodisplay/v7/RWmVoLyb5fEqtsfBX9PDZIGr2tFubRh7DXeX.woff') format('woff'), /* Modern Browsers */
+         url('https://fonts.gstatic.com/s/majormonodisplay/v7/RWmVoLyb5fEqtsfBX9PDZIGr2tFubRh7DXeU.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('https://fonts.gstatic.com/l/font?kit=RWmVoLyb5fEqtsfBX9PDZIGr2tFubRh7DXeW&skey=83d62fa7110a1053&v=v7#MajorMonoDisplay') format('svg'); /* Legacy iOS */
+  }
+  
+  
+  /* ============================================================ */
+  /* ======   C O N T A I N E R  &  B A C K G R O U N D   ======= */
+  /* ======   C O N T A I N E R  &  B A C K G R O U N D   ======= */
+  /* ==================  ( for the tubes )  ===================== */
+  .tube_container_background {
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top:30vh;
+  }
+  
+  .smoke_source{
+    position: absolute; /* WHY?!?!? */
+    bottom: 0;
+    width: 600px;
+    height:100px;
+    display: flex;
+    justify-content: space-around;
+    /* z-inde x: -1; */
+  }
+  /* optional div behind tubes for layered effects. 
+     Currently commented out in the HTML */
+  .filler{ position: absolute; background:pink; height:30px; width:400px;}
+  
+  .nixie_container{
+    display:flex; 
+    justify-content: center;
+  }
+  
+  /* background behind tubes */
+  .blueOnGlow {
+    background: radial-gradient(ellipse at bottom, #0000CD 0%, transparent 60%, transparent 100%); 
+    background-size: 100% 200%;
+    background-repeat: no-repeat;
+    -webkit-animation: AnimationName 1s ease-in-out 1;
+    -moz-animation: AnimationName 1s ease-in-out 1;
+    animation: AnimationName 1s ease-in-out 1;
+  }
+  @keyframes AnimationName { /*  horizontal /  vertical */
+      0%{background-position:100% 0%}   /*  starts at */
+     10%{background-position:100% 50%} /*  jumps to */
+     15%{background-position:100% 10%} /*  jumps to */
+    100%{background-position:100% 5%} /*  ends at */
+  }
+  @-webkit-keyframes AnimationName {
+      0%{background-position:100% 0%}   
+     20%{background-position:100% 50%}
+    100%{background-position:100% 5%}
+  }
+  @-moz-keyframes AnimationName {
+      0%{background-position:100% 0%}   
+     20%{background-position:100% 50%}
+    100%{background-position:100% 5%}
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  /* ======================================================= */
+  /* ==================       T H E       ================== */
+  /* ==================     T U B E S     ================== */
+  /* ==================                   ================== */
+  /* ======================================================= */
+  /* ========== (^) (^) (^) (^) (^) (^) (^) (^) ============ */
+  
+  /*  ======  The tube WRAPPER and it's children ====== */
+  .nixie_tube {   
+    display: flex;  
+    align-items: flex-end ;  
+    /* justify-content: center;  */
+    flex-direction: column;
+    width: 112px;
+    /* height: 266px;  NOT SPECIFIED so it expands automagically */
+    /* border: 1px dotted red; */
+    margin-right:10px;
+    transform-origin: bottom left;
+    /*   margi n-right:10px;
+    margi n-top:100px;
+    trans form: rotate(20deg);
+    trans form: scale(50%); */
+  }  
+  
+  /* .nixie_tube > *  {  
+    position: absolute;   
+  } */
+  
+  /*  ==================  G L A S S  ================== */
+  /*  ==================  G L A S S  ================== */
+  /*  ==================  G L A S S  ================== */
+  .glass {
+    display: flex;  
+    align-content: flex-end; 
+    justify-content: center; 
+    width: inherit; 
+    height: 204px; 
+  }
+  
+  .glass > *  {  
+    position: absolute;  
+  }
+  
+  .nipple{
+    align-self: flex-start;
+    width: 32px; 
+    height: 8px; 
+    /* === styling ===  */
+    border-radius: 50% 50% 0% 0% / 100% 99% 0% 0% ;
+    border-top:1px solid rgba(255,255,255, 0.2); 
+    border-left:1px solid rgba(255,255,255, 0.7); 
+    background: rgb(255,255,255);
+    background: radial-gradient(farthest-corner at 4px 4px, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.8) 15%, rgba(0,0,0,0) 70%);
+  }
+  
+  .nixie_glass{
+    /* shape of tube */
+    width: inherit; 
+    height: 192px;  
+    align-self:flex-start;
+    margin-top:10px; /* offset for nipple */
+    /* === styling ===  */
+    border-top: 1px solid rgba(150, 150, 150, 0.2);
+    border-left: 2px solid rgba(201, 201, 201, 0.2);
+    border-right: 3px solid rgba(201, 201, 201, 0.2); 
+    border-radius: 44% 42% 5% 4% / 18% 18% 8% 7% ;
+  }
+  .nixie_glass_left{
+    /* reflection - rename appropriately ==================================== */
+    /*   align-self:flex-start; */
+    margin-top:12px; /* offset for nipple */
+    margin-left:1px;
+    width: 104px;
+    height: 191px; 
+    /* === styling === */
+    opacity:0.4;
+    border-left: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 44% 42% 10% 8% / 18% 18% 5% 3% ;
+    /* The border below could be good for reflection of color */ 
+    /*   border-right: 3px solid rgba(255, 191, 0, 0.5); */
+    /*  feeble attempt at glass glare   */  
+    box-shadow: 20px 0 12px rgba(222, 222, 222, 0.5) inset; 
+      -webkit-box-shadow: 20px 0 12px rgba(222, 222, 222, 0.4) inset; 
+      -moz-box-shadow: 20px 0 12px rgba(222, 222, 222, .5) inset; 
+  }
+  .nixie_glass_left_front{
+    /* reflection - rename appropriately ==================================== */
+    /* left side done with margins, */ 
+    /* right side done with absolute positiong */
+    /* We'l see how this works out with future flexibility */ 
+    margin-top:25px;
+    margin-right:68px;
+    width: 22px;
+    height: 175px;
+    /* === styling === */
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50% 50% 10% 8% / 30% 30% 5% 3% ;
+    /*  feeble attempt at glass glare   */  
+    box-shadow: -10px 15px 6px rgba(222, 222, 222, 0.2) inset; 
+  /* 	-webkit-box-shadow: 20px 0px 12px rgba(222, 222, 222, 0.4) inset; 
+      -moz-box-shadow: 20px 0px 12px rgba(222, 222, 222, .5) inset;  */
+  }
+  
+  .nixie_glass_right_front{
+    /* reflection - rename appropriately ==================================== */
+    position:relative;
+    top:26px;
+    left:37px;
+    width: 27px;
+    height: 175px;
+    /* === styling === */
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50% 50% 10% 8% / 30% 30% 5% 3% ;
+    /*  feeble attempt at glass glare   */  
+    box-shadow: 10px 15px 6px rgba(222, 222, 222, 0.3) inset; 
+  /* 	-webkit-box-shadow: 20px 0px 12px rgba(222, 222, 222, 0.4) inset; 
+      -moz-box-shadow: 20px 0px 12px rgba(222, 222, 222, .5) inset;  */
+  }
+  
+  .top_reflection {
+    width: 85px; 
+    height: 25px;
+    align-self:flex-start;
+    margin-top:15px;
+    /* === styling === */
+    background-color:none; 
+    border-radius: 50% 50% 20% 20% / 90% 90% 10% 10% ;
+    opacity: 0.9;
+    box-shadow: 4px 7px 6px rgba(255, 255, 255, 0.7) inset; 
+      -webkit-box-shadow: 4px 7px 6px rgba(255, 255, 255, 0.4) inset; 
+      -moz-box-shadow: 4px 7px 6px rgba(255, 255, 255, 0.7) inset; 
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  
+  /*  ==================  D I G I T S  ================== */
+  /*  ==================  D I G I T S  ================== */
+  /*  ==================  D I G I T S  ================== */
+  .digits {
+    font-size: 160px; 
+    font-family: 'Major Mono Display'; 
+  /*   font-family: 'Raleway Dots', cursive; */
+    font-style: normal;
+    font-weight: 100; /* 100, 300, 500, 800 */
+    width: inherit; /* same as the tube  */
+    height: inherit;
+    display: flex;  
+    align-items: center ;  
+    justify-content: center; 
+  }
+  
+  .digits .digit.alpha {
+    font-family: 'Raleway', sans-serif; /* 'Major Mono Display'; */
+    font-weight: 300; /* 100, 300, 500, 800 */
+    scale: 70% 100%;
+    padding-top:13px;
+  }
+  .digits {
+    width:30px;
+  }
+  
+  .digits > *  {  
+    position: absolute;  
+  }
+  
+  .digit {
+    color: var(--digit-off-color);   
+    opacity:0.1; 
+  }
+  
+  /* ================ L I T E element ================ */
+  /* Makes the element opaque and brings to the front */
+  /* Completes the illuminated effect along with the  */
+  .lit{
+    opacity:1;
+    z-index:100;  
+    color: --digit-on-color;
+    color: transparent; 
+    -webkit-background-clip: text;  
+       -moz-background-clip: text;
+            background-clip: text; 
+    /* The Outside Glow, thrid shadow is biggest glow  */
+    text-shadow:  rgba(225, 221, 0,1.0) 0px 0px 4px, /* #E1DD00 bright yellow */
+                  rgba(255,162,0,1) 0px 0px 25px , /* #FFA200 bright orange */
+                  rgba(255,162,0,1) 0px 0px 39px, /* #FFA200 bright orange */
+                  rgba(255,162,0,1) 0px 0px 25px; /* 255,255,161 is white yellow */
+    /* #ff0000 is bright red - 255, 255, 0 */
+    /* #FFA200 bright orange - 255, 162, 0 */
+    /* #E1DD00 bright yellow  - 225, 221, 0 */
+    /* #FFFFA1 super bright yellow - 255, 255, 161 */ 
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  
+  /*  ==============  H O N E Y C O M B   =============== */
+  /*  ============           &              ============= */
+  /*  ========  I N S I D E   E L E M E N T S  ========== */
+  .honeycomb{
+    width: 85px; 
+    height: 150px;
+    margin-top:37px;
+    /* === styling ===  */
+    opacity:0.5;
+    border-bottom:2px solid darkgray; 
+    border-top:2px solid darkgray;  
+    border-left:3px solid rgba(255,255,255,0.3); /* make this change on 'glow" */
+    border-right:3px solid rgba(255,255,255,0.3); 
+    border-radius: 50% 50% 50% 50% / 8% 8% 8% 8% ;
+    /* effects are set in .coneycomb.glowing, below */
+    /* and triggered in the JS */
+    transition-property: all;
+    transition-duration: 300ms; 
+    transition-timing-function: linear;
+    transform-origin: top center;  /*  ???  */
+  }
+  .honeycomb.glowing {
+    opacity:0.9;
+    -webkit-box-shadow: inset 0px 0px 29px 18px rgba(255,178,46,0.3), 0px 0px 29px 28px rgba(255,178,46,0.2);
+    -moz-box-shadow: inset 0px 0px 29px 18px rgba(255,178,46,0.3), 0px 0px 29px 28px rgba(255,178,46,0.2); 
+    box-shadow: inset 0px 0px 29px 18px rgba(255,178,46,0.3), 0px 0px 29px 28px rgba(255,178,46,0.2);
+    border-bottom:2px solid rgba(255, 165, 0, 0.5) ;
+    border-top:2px solid rgba(255, 255, 0, 0.5) ;
+  }
+  
+  /* for the honycomb SVG */
+  path {
+    fill: #fff;
+    stroke: gray;
+    stroke-width: 10;
+    fill-opacity:0;
+    stroke-opacity:1.0;
+  }
+  
+  .prongs {
+    align-self:flex-end;
+    height: 22px;
+    width: inherit;
+    /*  below is needed for inner divs */
+    display:flex;
+    justify-content: space-evenly;
+  }
+  
+  .prongs div{
+    width:4px;
+    height:inherit;
+    background: rgb(110,110,110);
+    background: linear-gradient(180deg, rgba(150,150,150,0.5) 0%, rgba(0,0,0,0.5) 100%); 
+    border-left: 1px solid rgba(155, 155, 155, 0.2);
+    border-right: 1px solid rgba(100, 100, 100, 0.5);
+    /* Not doing much */
+    border-radius: 50% 50% 100% 100% / 70% 70% 0% 0% ;
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  
+  /* ============  P L A S T I C  B A S E  ============= */
+  /* ============          [___]           ============= */
+  /* ============  P L A S T I C  B A S E  ============= */
+  .base{
+    display: flex;  
+    align-content: center; 
+    justify-content: center;  
+    width: inherit; 
+    height: 32px; 
+    /* === styling === */
+    border-bottom: 4px solid rgba(22,22,22,0.4); 
+    border-radius: 5px;
+    background: var(--base-background);  /*  rgb(22,22,22);  */
+    transform-origin: bottom left;
+  }
+  
+  .base > *  {  
+    position: absolute;  
+  }
+  
+  .base_gradiant {
+    width:inherit;  
+    height:inherit;
+    /* === styling ===  */
+    border-radius: 5px;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#111111+0,4f4f4f+6,494949+28,3d3d3d+31,000000+97,bababa+100 */
+  
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#111111+0,4f4f4f+6,494949+28,3d3d3d+31,000000+97,707070+100 */
+  background: rgb(17,17,17); /* Old browsers */
+  background: -moz-linear-gradient(left,  rgba(17,17,17,1) 0%, rgba(79,79,79,1) 6%, rgba(73,73,73,1) 28%, rgba(61,61,61,1) 31%, rgba(0,0,0,1) 97%, rgba(112,112,112,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left,  rgba(17,17,17,1) 0%,rgba(79,79,79,1) 6%,rgba(73,73,73,1) 28%,rgba(61,61,61,1) 31%,rgba(0,0,0,1) 97%,rgba(112,112,112,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right,  rgba(17,17,17,1) 0%,rgba(79,79,79,1) 6%,rgba(73,73,73,1) 28%,rgba(61,61,61,1) 31%,rgba(0,0,0,1) 97%,rgba(112,112,112,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111111', endColorstr='#707070',GradientType=1 ); /* IE6-9 */
+    
+  /* below is the original  */
+  /*    background: linear-gradient(90deg, rgba(22,22,22,1) 0%, rgba(88,88,88,1) 4%, rgba(55,55,55,1) 8%, rgba(80,80,80,1) 23%, rgba(0,0,0,1) 98%, rgba(65,65,65,1) 100%);  */
+   
+  }
+  
+  .base_top {
+    width:inherit;  
+    height:inherit;
+    /* === styling ===  */
+    border-radius: 5px;
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(88,88,88,0.5) 6%, rgba(88,88,88,0) 12%, rgba(81,81,81,0) 84%, rgba(31,31,31,0.9) 92%, rgba(0,0,0,0.9) 100%);  
+  }
+  
+  .base_top_depth {
+    width:inherit;  
+    height:inherit;
+    /* === styling ===  */
+    border-radius: 5px;
+    opacity:0.7;
+    background-size: 100% 200%; /* width/height */
+    background-repeat: no-repeat;
+    /* This background offset looks great, but needs a blurred top edge  */
+    /* I should have a separate 3px top radial for this  */
+    
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1e5799+0,000000+84,000000+100&0+0,0+69,0.8+95 */
+  
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1e5799+0,000000+72,212121+100&0+0,0+51,0.8+95 */
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(30,87,153,0) 0%, rgba(9,25,45,0) 51%, rgba(0,0,0,0.38) 72%, rgba(27,27,27,0.8) 95%, rgba(33,33,33,0.8) 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(30,87,153,0) 0%,rgba(9,25,45,0) 51%,rgba(0,0,0,0.38) 72%,rgba(27,27,27,0.8) 95%,rgba(33,33,33,0.8) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center,  rgba(30,87,153,0) 0%,rgba(9,25,45,0) 51%,rgba(0,0,0,0.38) 72%,rgba(27,27,27,0.8) 95%,rgba(33,33,33,0.8) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#cc212121',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  }
+  
+  
+  /* ========================================================= */
+  /* == add .base_glow for Orange/glow reflections on base === */
+  /* ========================================================= */
+  .base_glow_effect { 
+    opacity: 0.3;
+    width:inherit;  
+    height:inherit;
+    /* === styling ===  */
+    border-radius: 5px;
+    /* background: rgb(255,202,5);  NO FALLBACK, it's only a hilight */
+    background: radial-gradient(ellipse at top, rgba(255,202,5,0.9) 0%, rgba(45,45,45,0) 60%, rgba(0,0,0,0) 100%) ;
+  }
+  
+  
+  
+  
+  
+  /* ============================================================ */
+  /* =====================  C A B I N E T   ===================== */
+  /* ===================  (below the tubes)   =================== */
+  /* ============================================================ */
+  .cabinet{
+    display:flex;
+    flex-direction:column;
+    height:50vh;
+    background: rgb(110,110,110);
+    background: linear-gradient(180deg, rgba(50,50,50,1) 0%, rgba(24,24,24,1) 1%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 100%); 
+  }
+  
+  #info {
+    content: ' ';
+    display:flex;
+    justify-content: center;
+    margin-top:20px;
+    font-family: 'Raleway Dots', cursive;
+    color: gray;
+    filter: blur(0.7px); 
+    opacity: 1; 
+  /*   transition: opacity 3s ease-in-out;
+    -moz-transition: opacity 3s ease-in-out;
+    -webkit-transition: opacity 3s ease-in-out; */ 
+  }
+  
+  #info.fadeOut {
+    opacity: 0.0;  
+    transition: opacity 3s ease-in-out;
+    -moz-transition: opacity 3s ease-in-out;
+    -webkit-transition: opacity 3s ease-in-out;
+  }
+  
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  /* ======================================================= */
+  /* ==================                   ================== */
+  /* ==================   B U T T O N S   ================== */
+  /* ==================                   ================== */
+  /* ======================================================= */
+  /* =========== (power) (cycle) (clock) (Mayhem) ========== */
+  
+  .buttons{
+    display:flex;
+    justify-content: center;
+    align-items: flex-start; 
+  }
+  
+  button#power {
+    margin:20px  auto 30px; 
+  }
+                  /* dev only. delete for deployment */
+                  .buttons_dev{
+                    position: absolute;
+                    top:20px;
+                    display:flex;
+                    justify-content: center; 
+                    padding: 10px;
+                  }
+  
+  /* button.main {
+    height:29px; 
+    border:1px solid red;
+  } */
+  
+  button {
+    position: relative;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    /* font-family: 'Azeret Mono', monospace; */
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--black-15, rgba(100,100,100,0.5) );
+    border-radius: 5px;
+    border-left: 1px solid rgba(79,79,79,0.99);
+    border-top: 1px solid rgba(79,79,79,0.99);
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    padding: 5px 20px; 
+    /* top-left-outside, top-left-inside, bottom-right-inside, bottom-right-outside */ 
+    box-shadow: -1px -1px 3px 1px rgba(79,79,79,0.99), inset 2px 2px 3px 1px rgba(79,79,79,0.99), 2px 2px 3px 1px rgba(0,0,0,1), inset -1px -1px 3px 1px rgba(0,0,0,1);
+    /* -webkit-box-shadow:   ADD THIS LATER  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =*/   
+  }
+  
+  .button_with_controls {
+    /* does not apply to Mayhem */
+    /* allows for better centering of the button row, 
+    since flex does not seem to be set up correctly? */
+    margin-right:20px;  
+  }
+  
+  button:hover {
+    background-color: var(--black-20, rgba(10,10,10,0.5) ); 
+    color: var(--black-13, rgba(100,100,100,0.99) );
+  }
+  
+  button.active_button:after { 
+    content: attr(data-content);
+    position: absolute;
+    top: 5px;
+    left: 0px; 
+    height: 40px;
+    width: 100%;
+    opacity: 1; 
+    color: transparent; 
+    -webkit-background-clip: text;  
+       -moz-background-clip: text;
+            background-clip: text;
+    background-color: lightSkyBlue; 
+    /* Multiple shadows makes for a richer experience  */
+    text-shadow:  rgba(135, 206, 250, 0.5) 0px 0px 2px,  
+                  rgba(135, 206, 250,   1) 0px 0px 15px,  
+                  rgba(  0,   0, 255,   1) 0px 0px 25px, 
+                  rgba(  0,   0, 255,   1) 0px 0px 40px;
+  }
+  
+  button#power.active_button:after { 
+    background-color: red;
+    /* Multiple shadows makes for a richer experience  */  
+    text-shadow:  rgba(135, 206, 250, 0.5) 0px 0px 2px, 
+                  red 0px 0px 15px,  
+                  red 0px 0px 25px, 
+                  red 0px 0px 40px; 
+  }
+  
+  .button_with_controls{
+    display: flex;  
+    flex-direction: column;
+    align-content: center; 
+    justify-content: center; 
+    transform-origin: bottom left;
+  }
+  
+  #cycle_slider_container {
+    margin-top:8px;
+  }
+  #cycle_speed {
+    width:80px;
+    direction: rtl; 
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  /* ======================================================= */
+  /* ==================      12 / 24      ================== */
+  /* ==================      H O U R      ================== */
+  /* ==================       CHECK       ================== */
+  /* ==================        BOX        ================== */
+  /* ======================================================= */
+  
+  /* used for 12/24 mil time switch. 
+  Change name if not used universally */
+  .opacity_5 { 
+    opacity:0.5;
+    transition: opacity 250ms ease-in-out;
+    -moz-transition: opacity 250ms ease-in-out;
+    -webkit-transition: opacity 250ms ease-in-out;
+  }
+  
+  #military_slider_container {
+    display: flex;
+    justify-content: space-around;
+    margin-top:10px;
+    margin-left: 0px;
+  }
+  
+  #military_slider_container span:not(.slip) {
+    font-family: 'Raleway Dots', cursive;
+    font-size:18px;
+    line-height: 12px;
+    filter: blur(0.7px); 
+    color: var(--black-5);
+  }
+  
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    width: 35px;
+    height: 18px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The BACKGROUND of the slider */
+  .slip {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+    padding-left:30px;
+    -webkit-transition: .4s;
+    transition: .4s;
+    box-shadow: inset 1px 1px 1px var(--black-17);
+    background-color: pink;  /* #202020; */
+    border-top:1px solid var(--black-19);  /* #2a2a2a; */
+    border-left:1px solid var(--black-19);  /* #2a2a2a; */
+    border-right:1px solid var(--black-14);  /* #1a1a1a; */
+    border-bottom:1px solid var(--black-14);  /* #1a1a1a; */
+  }
+  
+  .slip:before { /* THE ROUND THUMB SLIDER */
+    cursor:crosshair;
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 12px;
+    left: 3px; /* starting positon of the thumb */
+    bottom: 0px;
+    background-color:  lavender; 
+    -webkit-transition: .4s;
+    transition: .4s;
+  
+  }
+  
+  .switch input:checked + .slip { 
+    /* background when CLICKED - to the right */
+    background-color: var(--black-18); /* #2a2a2a  */
+  }
+  
+  
+  /* .switch input:focus + .slip {
+    box-shadow: 1px 1px 1px blue;
+    retains focus untill clicked out of. now can't get it to show?
+  } */
+  
+  .switch input:checked + .slip:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
+  
+  /* Rounded sliders */
+  .slip.round { /* background when UN checked - to the left */
+    border-radius: 34px;
+    background-color:  var(--black-18); /* #252525  */
+  }
+  
+  .slip.round:before { /* thumb post top circel*/
+    border-radius: 50%;
+    background-color: var(--black-17);  /* #202020; */
+    border-top:1px solid var(--black-5);  /* #2a2a2a; */
+    border-left:1px solid var(--black-7);  /* #2a2a2a; */
+    border-right:1px solid var(--black-12);  /* #1a1a1a; */
+    border-bottom:1px solid var(--black-20);  /* #1a1a1a; */
+  } 
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  /* ======================================================= */
+  /* ==================    M I S C .      ================== */
+  /* ==================    M I S C .      ================== */
+  /* ==================    M I S C .      ================== */
+  /* ==================    S T U F F      ================== */
+  /* ======================================================= */
+  .opaque{opacity:1;}
+  .trans_3{opacity:0.2;}
+  .front {z-index:100;}
+  
+  .scale_skinny{
+    transform: scale(0.5, 1);
+    transform-origin: bottom left;
+  }
+  
+  .scale_skinny_up{
+    transform: scale(2, 1);
+    transform-origin: bottom center;
+  }
+  
+  .nothing{
+  transform: scale(2, 0.5); /* Equal to scaleX(2)[width] scaleY(0.5)[height] */
+  }
+  
+  .scale_base_thin {
+   transform: scale(0.5, 1);
+   transform-origin: bottom left;
+  }
+  
+  .scale_base_fat {
+   transform: scale(2, 1);
+   transform-origin: bottom left;
+  }
+  
+  .scale_short{
+    transform: scale(0.5, 0.5);
+    transform-origin: bottom left;
+  }
+  
+  .scale_short_up{
+    transform: scale(2, 2);
+    transform-origin: bottom center;
+  }
+  
+  .general_glow {
+    opacity:0.5;
+    -webkit-box-shadow: inset 0px 0px 29px 18px rgba(255,178,46,0.3), 0px 0px 29px 28px rgba(255,178,46,0.2);
+    -moz-box-shadow: inset 0px 0px 29px 18px rgba(255,178,46,0.3), 0px 0px 29px 28px rgba(255,178,46,0.2); 
+    box-shadow: inset 0px 0px 29px 18px rgba(255,178,46,0.3), 0px 0px 29px 28px rgba(255,178,46,0.2);
+  /*  transition-property: all;
+      transition-duration: 2s; */
+    border-bottom:1px solid orange ;
+    border-top:1px solid yellow ;
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  
+  /* ======================================================== */
+  /* ===============    A N I M A T I O N S    ============== */
+  /* ===============    A N I M A T I O N S    ============== */
+  /* ===============    A N I M A T I O N S    ============== */
+  /* ===============    A N I M A T I O N S    ============== */
+  /* ===============    A N I M A T I O N S    ============== */
+  /* ======================================================== */
+  
+  /* == pulsating glow == */
+  @keyframes slowGlowPulse {
+      0% { opacity: 1.0 }
+     50% { opacity: 0.7 }
+    100% { opacity: 1.0 }
+  }
+  .slowGlowPulse {
+    transition-property: opacity ;
+    animation-name: slowGlowPulse;
+    animation-duration: 3s; 
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-ease-out;
+  }
+  
+  /* === shrinking of the tubes for the clock === */
+  /* ========== make the colon skinny =========== */
+  @keyframes thinner {
+      0% { transform: scale(1, 1); }
+     32% { transform: scale(0.5, 1.125);  }
+    100% { transform: scale(0.5, 1); }
+  }
+  .thinner {
+    animation-name: thinner;
+    transition-property: scale;
+    animation-duration: 300ms;  
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+  .thinner + .nixie_tube { 
+    /*  bring the tube on it's right, closer */
+    /*  to fill the space made from shrinking */
+    /*  tubeX with .thinner class */
+    margin-left:-55px;
+    transition: margin-left 200ms;
+    transition-timing-function: ease;
+  }
+  
+  
+  /* == shrinking tubes 7 and 8 for the SECONDS == */
+  /* ========== bases scaled separately ========== */
+  @keyframes stubby {
+      0% { transform: scale(1, 1); }
+      32% { transform: scale(0.5, .125); }
+      100% { transform: scale(0.5, 0.5); }
+  }
+  .stubby {
+      animation-name: stubby;
+      transition-property: scale ;
+      animation-duration: 600ms; 
+      animation-iteration-count: 1;
+      animation-timing-function: ease-in-ease-out;
+      animation-fill-mode: forwards;
+  }
+  
+  .stubby + .nixie_tube { 
+    /*  bring the tube on it's right, closer */
+    /*  to fill the space made from shrinking */
+    /*  tubeX with .thinner class */
+    margin-left:-55px;
+    transition: margin-left 500ms;
+    transition-timing-function: ease;
+  }
+  /* == shrinking the SECONDS bases separately == */
+  /* ========== different proportions =========== */
+  @keyframes thinner_base {
+      0% { transform: scale(1, 1); }
+      32% { transform: scale(0.5, 1.125); }
+      100% { transform: scale(1, 2); }
+  }
+  .thinner_base {
+      animation-name: thinner_base;
+      transition-property: scale ;
+      animation-duration: 600ms; 
+      animation-iteration-count: 1;
+      animation-timing-function: ease-in-ease-out;
+      animation-fill-mode: forwards;
+  } 
+  /* == matches up the glass tube and the base == */
+  /* ===== as they were scaled separately ======= */
+  .stubby .glass {
+    position:relative;
+    bottom:32px;
+  }
+  /* ======== wiggles the tubes on hover ======== */
+  /* === Clinking sound effect also triggered === */
+  .nixie_tube:hover {
+      animation-name: thumb;
+      animation-duration: 1000ms;
+      transform-origin:50% 100%;
+      animation-iteration-count: infinite; /* The magic keyword for infinite*/
+      animation-timing-function: linear;
+  }
+  @-webkit-keyframes thumb {
+      0% { transform: rotate(3deg); }
+      50% { transform: rotate(-3deg); }
+      100% { transform: rotate(3deg); }
+  }
+  @keyframes thumb {
+      0% { transform: rotate(3deg); }
+      50% { transform: rotate(-3deg); }
+      100% { transform: rotate(3deg); }
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  /* ======================================================= */
+  /* ==================    S l i d e r    ================== */
+  /* ==================     •             ================== */
+  /* ==================       •           ================== */
+  /* ==================            •      ================== */
+  /* ======================================================= */
+  .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;  
+    background: var(--black-15); /*  rgba(100,100,100, 0.5); */
+    outline: none;
+    opacity: 0.4;
+    -webkit-transition: .3s;
+    transition: opacity .3s;
+  }
+  /* Mouse-over effects */
+  .slider:hover {
+    /* Fully shown on mouse-over */
+    opacity: 1; 
+    background: var(--black-16); 
+  }
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%; 
+    background: var(--black-6);  /*  dimgray; */
+    cursor: pointer;
+    /* add vendor prefixes later <============================================= */
+    background-color: var(--black-17);  /* #202020; */
+    border-top:1.5px solid var(--black-1);  /* #2a2a2a; */
+    border-left:1.5px solid var(--black-6);  /* #2a2a2a; */
+    border-right:1.5px solid var(--black-8);  /* #1a1a1a; */
+    border-bottom:1.5px solid var(--black-20);  /* #1a1a1a; */
+  }
+  .slider::-moz-range-thumb {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    /* add vendor prefixes later <============================================= */
+    background-color: var(--black-17);  /* #202020; */
+    border-top:1.5px solid var(--black-1);  /* #2a2a2a; */
+    border-left:1.5px solid var(--black-6);  /* #2a2a2a; */
+    border-right:1.5px solid var(--black-8);  /* #1a1a1a; */
+    border-bottom:1.5px solid var(--black-20);  /* #1a1a1a; */
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* ============================================================ */
+  /* ========    F U R T H E R  D E V E L O P M E N T    ======== */
+  /* ============================================================ */
+  
+  /* work on this: base_glow should only show if 
+  a number in the tube is lit 
+  Using child selectors on the 'lit' tube according to js */
+  /*  #tube_1 > div:nth-child(2) { border:1px solid red; opacity:1;} */
+  /* #tube_3 > div:nth-child(3) {  border:1px solid red; opacity:1;} */
+  /* .on > div:nth-child(3) {  border:1px solid red; opacity:1;} */
+  /* child 9 is the base glow element */ 
+  /* .on > div:nt h-child(6) {  opacity:1;} */
+  /* child 9 is the base glow element */ 
+  
+  /* ========= use for MAHYEM effect!!! */
+  /* #tube_1 {
+  perspective: 600px;
+    overfl ow: visible;
+  }
+  
+  #tube_1 .glass {	
+      transform-style: preserve-3d;
+    transition: 1s;
+    transform-origin: center bottom;
+  }
+  .nixie_cont ainer:hover #tube_1 .glass{
+          transform: rotateY(-90deg);
+      } */
+  
+  
+  
+  /* another really cool mayhem effect! */
+  /* #tube_1 .glass{
+  perspective: 600px;
+    overfl ow: visible;
+  }
+  #tube_1 .glass .honeycomb{	
+      transform-style: preserve-3d;
+    transition: 1s;
+    transform-origin: center bottom;
+  }
+  .nixie_container:hover #tube_1 .glass .honeycomb{
+          transform: rotateY(-180deg);
+      } */
+  
+  
+  
+  /* another really cool mayhem effect! */
+  /* #tube_1  {
+  perspective: 600px;
+    overfl ow: visible;
+  } */
+  /* #tube_1  {	
+      transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: 0.5s;
+    transform-origin: center bottom;
+  }
+  .nixie_container:hover #tube_1  {
+          transform: rotateX(-90deg);
+  
+      } */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+     /* .nixie_tube {
+     perspective: 600px; 
+       perspective was DOUBLED when applied to 
+       the .nixie_tube and .glass separately 
+     } */
+  /*    
+      .glass {	
+       perspective: 600px; 
+         transform-style: preserve-3d;
+       transition: 1s;
+       transform-origin: center bottom;
+     }
+     
+     .nixie_container:hover .honeycomb{
+         animation-name: spin;
+         animation-duration: 800ms;  
+         transform-origin:center bottom;
+         animation-iteration-count: infinite;  
+         animation-timing-function: ease-out;
+     }
+     
+     @-webkit-keyframes spin {
+         0% { transform: rotateY(0deg); }
+         50% { transform: rotateY(180deg); }
+         100% { transform: rotateY(360deg); }
+     }
+  
+   */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* .nixie_tube {
+  perspective: 600px; 
+  perspective was DOUBLED when applied to 
+    the .nixie_tube and .glass separately 
+  } */
+  
+   .glass {	
+    perspective: 600px;  
+      transform-style: preserve-3d;
+    transition: 1s;
+    transform-origin: center bottom;
+  }
+  
+  /* .nixie_container:hover .honeycomb, .nixie_container:hover .digits{  */
+  .twirly_tubes {
+      animation-name: spin_up;
+      animation-duration: 1000ms; /* below 200 creates cool flicker effect */
+      transform-origin:center bottom;
+      animation-iteration-count: 1; /* The magic keyword for infinite*/
+      animation-timing-function: ease-out;
+  }
+  
+  @keyframes spin_up {
+      0% { transform: rotateY(0deg); }
+      50% { transform: rotateY(180deg); }
+      100% { transform: rotateY(360deg); }
+  }
+  @-webkit-keyframes spin_up {
+      0% { transform: rotateY(0deg); }
+      50% { transform: rotateY(180deg); }
+      100% { transform: rotateY(360deg); }
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  /* ======================================================= */
+  /* ==================      B l u e      ================== */
+  /* ==================    S c r e e n    ================== */
+  /* ==================        Of         ================== */
+  /* ==================     D e a t h     ================== */
+  /* ======================================================= */
+  /* resolve this: use the html import instead of this */
+  /* Import is NOT WORKING when only using HTML link ?!?!? */
+  /* <link href="https://db.onlinewebfonts.com/c/47d5fd8c3738de46ef0b3fe3f68c289a?family=Perfect+DOS+VGA+437" rel="stylesheet" type="text/css"/> */
+  
+  /* https://www.onlinewebfonts.com/download/47d5fd8c3738de46ef0b3fe3f68c289a */
+  
+  @font-face {font-family: "Perfect DOS VGA 437"; src: url("//db.onlinewebfonts.com/t/47d5fd8c3738de46ef0b3fe3f68c289a.eot"); src: url("//db.onlinewebfonts.com/t/47d5fd8c3738de46ef0b3fe3f68c289a.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/47d5fd8c3738de46ef0b3fe3f68c289a.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/47d5fd8c3738de46ef0b3fe3f68c289a.woff") format("woff"), url("//db.onlinewebfonts.com/t/47d5fd8c3738de46ef0b3fe3f68c289a.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/47d5fd8c3738de46ef0b3fe3f68c289a.svg#Perfect DOS VGA 437") format("svg"); } 
+  
+  
+  #bsog {
+    display:none;
+    position:absolute;
+    top:0;
+    left:0;
+    font-family: "Perfect DOS VGA 437";  
+    font-size:8px;
+    line-height: 3.2;
+    background-color: #0b24fb;
+    padding-left: 20%;
+    padding-right:20%;
+    padding-top: 20%;
+    color: whitesmoke;
+    width:100%;
+    height:100%;
+    z-index: 99999
+  }
+  #bsog ul {
+    padding-left:0px;
+  }
+  #bsog li {
+    position: relative;
+    list-style: none;
+  }
+  #bsog li:before {
+    content: "*";
+    position: absolute;
+    left: -25px;
+  }
+  #bsog div.warning{
+    display:block;
+    height: 18px;
+    width: 80px;
+    margin: 50px auto;
+    padding:0px 10px 0px 10px; /* top right bottom left    */
+    background-color: whitesmoke;
+    color: #0b24fb; 
+    text-align: center;
+  }
+  .blinker { /* also used for bblinking semicolon on clock?  */
+    animation-name: blinker;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(1,0,0,1);
+    animation-duration: 1s;
+    display: inline-block;
+  }
+  #bsog p {
+    margin-top:30px;
+  }
+  @keyframes blinker { 
+    from { opacity: 1.0; } to { opacity: 0.0; }
+  }
+  .skitter {
+      animation-name: skitter; 
+      animation-duration: 2000ms; 
+      transform-origin:center bottom;
+      animation-iteration-count: 1; 
+      animation-timing-function: ease-out;
+  }
+  @keyframes skitter {         
+      0% { transform: skew(0deg, 0deg) ; }
+     43% { transform: skew(0deg, 0deg) ; }  
+     45% { transform: skew(-50deg, 0deg); }  
+     50% { transform: skew(0deg, 0deg); }
+     90% { transform: skew(0deg, 0deg); } 
+     92% { transform: skew(-75deg, 0deg); } 
+     94% { transform: skew(0deg, 0deg); } 
+     97% { transform: skew(-120deg, 0deg); } 
+    100% { transform: skew(0deg, 0deg); }
+  }
+  @-webkit-keyframes skitter {         
+      0% { transform: skew(0deg, 0deg) ; }
+     43% { transform: skew(0deg, 0deg) ; }  
+     45% { transform: skew(-50deg, 0deg); }  
+     50% { transform: skew(0deg, 0deg); }
+     90% { transform: skew(0deg, 0deg); } 
+     92% { transform: skew(-75deg, 0deg); } 
+     94% { transform: skew(0deg, 0deg); } 
+     97% { transform: skew(-120deg, 0deg); } 
+    100% { transform: skew(0deg, 0deg); }
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+  
+  
+  
+  
+  
+  
+  
+  
+  /* ===================== S M O K E ======================= */
+  /* ===================== S M O K E ======================= */
+  /* ===================== S M O K E ======================= */
+  .smoke_source {
+  opacity: 0;
+  -webkit-transition: opacity 3000ms ease-in-out;
+  -moz-transition: opacity 3000ms ease-in-out;
+  -o-transition: opacity 3000ms ease-in-out;
+  transition: opacity 3000ms ease-in-out;
+  }
+  .vapor span{
+    min-width: 6px;
+    height:100px;
+    background: var(--smoke-color);  /*  #6d6a75; DimGray */
+    border-radius: 50%;
+    animation: animate 7s linear infinite;
+    opacity: 0;
+    filter: blur(8px);
+    animation-delay: calc(var(--i) * -0.5s); 
+  /*   transform-origin: 50% 10%; calc this first number so it goes in different directions */
+  }
+  @keyframes animate   
+  {    
+    0% { transform: translateY(0) translateX(0) scaleX(1); opacity: 0; }
+    15% {opacity: 1; } 
+    50% { transform: translateY(-150px) scaleX(3)  } 
+    /* 70% { transform: translateY(-150px) scal eX(3) rotate(-5deg); }  */
+    98% { opacity: 0; }
+    100% { transform: translateY(-400px) translateX(-120px) scaleX(10) rotate(-75deg) ; opacity: 0;} 
+  }
+  /* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ E N D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
